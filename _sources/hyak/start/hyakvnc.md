@@ -74,8 +74,8 @@ make CONT_NAME=rockylinux8
 5. Get the path to the container and xstartup:
 
 ```bash
-pwd rockylinux8/rockylinux8.sif
-pwd xfce4_config/xstartup
+realpath rockylinux8/rockylinux8.sif
+realpath xfce4_config/xstartup
 ```
 
 ## Installing hyakvnc
