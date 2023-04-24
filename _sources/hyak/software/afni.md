@@ -39,7 +39,7 @@ curl -O https://afni.nimh.nih.gov/pub/dist/bin/misc/@update.afni.binaries
 ```bash
 export LABNAME=escience
 export TARGET=/sw/contrib/"$LABNAME"-src/afni/
-tcsh @update.afni.binaries -package linux_centos_7_64 -do_extras -bindir /sw/contrib/$LABNAME/afni
+tcsh @update.afni.binaries -package linux_centos_7_64 -do_extras -bindir $TARGET
 ```
 
 3. Install required R libraries to `/sw/contrib/labname-src/afni/Rlibs`:
@@ -74,5 +74,15 @@ end
 
 whatis("Name: " .. name)
 whatis("Version: " .. version)
+```
+::::
+
+::::{note}
+Lmod takes some time to cache available modules. If a module does not appear, use the `-I` or
+`--ignore_cache` flag to force Lmod to check for new modules.
+
+```bash
+module -I avail afni
+module -I load labname/afni
 ```
 ::::

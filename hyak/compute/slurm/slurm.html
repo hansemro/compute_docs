@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>Slurm &#8212; Compute Documentation</title>
+    <title>Slurm Basics &#8212; Compute Documentation</title>
   
   
   
@@ -165,7 +165,7 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 </li>
 <li class="toctree-l1 current active has-children"><a class="reference internal" href="../compute.html">Compute</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
-<li class="toctree-l2 current active"><a class="current reference internal" href="#">Slurm</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Slurm Basics</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../apptainer/apptainer.html">Apptainer</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../lmod.html">Lmod</a></li>
 </ul>
@@ -347,7 +347,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
 </div></div>
       
     </div>
@@ -358,11 +360,22 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Slurm</h1>
+    <h1>Slurm Basics</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#checking-access-to-compute-resources">Checking access to compute resources</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#submitting-an-interactive-job-with-salloc">Submitting an interactive job with salloc</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#submitting-an-interactive-job-with-srun">Submitting an interactive job with srun</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#submitting-a-batch-job">Submitting a batch job</a></li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -372,9 +385,69 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="slurm">
-<h1>Slurm<a class="headerlink" href="#slurm" title="Permalink to this heading">#</a></h1>
-<p>Slurm is both a cluster manager and a job scheduler. When you submit a <strong>job</strong> to the job queue, Slurm allocates one or more <strong>nodes</strong> from the cluster based on computational needs and availability of resources. If the job was submitted with <code class="docutils literal notranslate"><span class="pre">srun</span></code> or <code class="docutils literal notranslate"><span class="pre">sbatch</span></code>, Slurm may also execute and watch tasks.</p>
+  <section class="tex2jax_ignore mathjax_ignore" id="slurm-basics">
+<h1>Slurm Basics<a class="headerlink" href="#slurm-basics" title="Permalink to this heading">#</a></h1>
+<p>UW Hyak clusters use <a class="reference external" href="https://slurm.schedmd.com/">Slurm</a> to manage access to compute resources and
+schedule user-submitted jobs.</p>
+<p>Users can submit a batch job for scripted parallel tasks or an interactive job for manual tasks or
+GUI programs.</p>
+<section id="checking-access-to-compute-resources">
+<h2>Checking access to compute resources<a class="headerlink" href="#checking-access-to-compute-resources" title="Permalink to this heading">#</a></h2>
+<p>Use <code class="docutils literal notranslate"><span class="pre">groups</span></code> command to see which groups you are a member of.</p>
+<p>Use <code class="docutils literal notranslate"><span class="pre">hyakalloc</span></code> command to check availability of compute resources.</p>
+</section>
+<section id="submitting-an-interactive-job-with-salloc">
+<h2>Submitting an interactive job with salloc<a class="headerlink" href="#submitting-an-interactive-job-with-salloc" title="Permalink to this heading">#</a></h2>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>salloc<span class="w"> </span>-A<span class="w"> </span>&lt;lab&gt;<span class="w"> </span>-p<span class="w"> </span>&lt;node_type&gt;<span class="w"> </span>-N<span class="w"> </span>&lt;NUM_NODES&gt;<span class="w"> </span>-c<span class="w"> </span>&lt;NUM_CPUS&gt;<span class="w"> </span>--mem<span class="o">=</span>&lt;MEM&gt;<span class="o">[</span>UNIT<span class="o">]</span><span class="w"> </span>--time<span class="o">=</span>DD-HH:MM:SS
+</pre></div>
+</div>
+<p>Add <code class="docutils literal notranslate"><span class="pre">--no-shell</span></code> flag if you plan to enter/exit the node without losing the job allocation.</p>
+<p>Use <code class="docutils literal notranslate"><span class="pre">scancel</span> <span class="pre">&lt;job_id&gt;</span></code> to terminate the job allocation.</p>
+<p>Use <code class="docutils literal notranslate"><span class="pre">squeue</span> <span class="pre">--me</span></code> to check information about active or pending job allocations (including job ID).</p>
+</section>
+<section id="submitting-an-interactive-job-with-srun">
+<h2>Submitting an interactive job with srun<a class="headerlink" href="#submitting-an-interactive-job-with-srun" title="Permalink to this heading">#</a></h2>
+<p>From the login node, run the following:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>srun<span class="w"> </span>-A<span class="w"> </span>&lt;lab&gt;<span class="w"> </span>-p<span class="w"> </span>&lt;node_type&gt;<span class="w"> </span>-N<span class="w"> </span>&lt;NUM_NODES&gt;<span class="w"> </span>-c<span class="w"> </span>&lt;NUM_CPUS&gt;<span class="w"> </span>--mem<span class="o">=</span>&lt;MEM&gt;<span class="o">[</span>UNIT<span class="o">]</span><span class="w"> </span>--time<span class="o">=</span>DD-HH:MM:SS<span class="w"> </span>--pty<span class="w"> </span>/bin/bash
+</pre></div>
+</div>
+</section>
+<section id="submitting-a-batch-job">
+<h2>Submitting a batch job<a class="headerlink" href="#submitting-a-batch-job" title="Permalink to this heading">#</a></h2>
+<div class="sd-card sd-sphinx-override sd-mb-3 sd-shadow-sm docutils">
+<div class="sd-card-header docutils">
+<p class="sd-card-text"><code class="docutils literal notranslate"><span class="pre">mybatch.job</span></code></p>
+</div>
+<div class="sd-card-body docutils">
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+
+<span class="c1">#SBATCH --job-name=&lt;name&gt; # optional</span>
+<span class="c1">#SBATCH --mail-type=&lt;status&gt; # optional</span>
+<span class="c1">#SBATCH --mail-user=&lt;email&gt; # optional</span>
+
+<span class="c1">#SBATCH --account=&lt;lab&gt;</span>
+<span class="c1">#SBATCH --partition=&lt;node_type&gt;</span>
+<span class="c1">#SBATCH --nodes=&lt;num_nodes&gt;</span>
+<span class="c1">#SBATCH --ntasks-per-node=&lt;cores_per_node&gt;</span>
+<span class="c1">#SBATCH --mem=&lt;size[unit]&gt;</span>
+<span class="c1">#SBATCH --gpus=&lt;type:quantity&gt;</span>
+<span class="c1">#SBATCH --time=&lt;time&gt; # Max runtime in DD-HH:MM:SS format.</span>
+
+<span class="c1">#SBATCH --chdir=&lt;working directory&gt; # default: current working directory</span>
+<span class="c1">#SBATCH --export=all</span>
+<span class="c1">#SBATCH --output=&lt;file&gt; # where STDOUT goes</span>
+<span class="c1">#SBATCH --error=&lt;file&gt; # where STDERR goes</span>
+
+<span class="c1"># Your program goes here...</span>
+my_program
+</pre></div>
+</div>
+</div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sbatch<span class="w"> </span>mybatch.job
+</pre></div>
+</div>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -435,6 +508,23 @@ document.write(`
             </div>
             
             
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#checking-access-to-compute-resources">Checking access to compute resources</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#submitting-an-interactive-job-with-salloc">Submitting an interactive job with salloc</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#submitting-an-interactive-job-with-srun">Submitting an interactive job with srun</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#submitting-a-batch-job">Submitting a batch job</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>

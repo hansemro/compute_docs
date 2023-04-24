@@ -65,7 +65,7 @@ const thebe_selector_output = ".output, .cell_output"
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
     <link rel="next" title="Lmod" href="../lmod.html" />
-    <link rel="prev" title="Slurm" href="../slurm/slurm.html" />
+    <link rel="prev" title="Slurm Basics" href="../slurm/slurm.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -165,7 +165,7 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 </li>
 <li class="toctree-l1 current active has-children"><a class="reference internal" href="../compute.html">Compute</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="../slurm/slurm.html">Slurm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../slurm/slurm.html">Slurm Basics</a></li>
 <li class="toctree-l2 current active"><a class="current reference internal" href="#">Apptainer</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../lmod.html">Lmod</a></li>
 </ul>
@@ -375,9 +375,11 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#interactive-session">Interactive session</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#building-apptainer-from-docker-io-registry">Building Apptainer from docker.io registry</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#writing-and-building-apptainer-recipes">Writing and Building Apptainer recipes</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pulling-an-apptainer-image-from-docker-io-registry">Pulling an Apptainer image from docker.io registry</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#writing-and-building-apptainer-recipes">Writing and building Apptainer recipes</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#scripting-with-apptainer">Scripting with Apptainer</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#clearing-apptainer-cache">Clearing Apptainer cache</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#changing-apptainer-cache">Changing Apptainer cache</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
 </ul>
             </nav>
@@ -392,6 +394,8 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="apptainer">
 <h1>Apptainer<a class="headerlink" href="#apptainer" title="Permalink to this heading">#</a></h1>
+<p>Apptainer (formerly Singularity) is a simple container platform enabling users to install and run
+software that would otherwise be unsupported by the host environment.</p>
 <section id="checking-available-versions">
 <h2>Checking available versions<a class="headerlink" href="#checking-available-versions" title="Permalink to this heading">#</a></h2>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>module<span class="w"> </span>avail<span class="w"> </span>apptainer
@@ -402,8 +406,8 @@ document.write(`
 <h2>Using Apptainer<a class="headerlink" href="#using-apptainer" title="Permalink to this heading">#</a></h2>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>In general, do not use the default version of Apptainer within an Apptainer environment.
-Specify a versioned module instead.</p>
+<p>In general, do not use the default version of Apptainer if within an Apptainer environment. Load a
+module with a version specified instead.</p>
 </div>
 <p>Load the default version with <code class="docutils literal notranslate"><span class="pre">module</span> <span class="pre">load</span> <span class="pre">apptainer</span></code>,</p>
 <p>or load a specific version with <code class="docutils literal notranslate"><span class="pre">module</span> <span class="pre">load</span> <span class="pre">apptainer/&lt;version&gt;</span></code>.</p>
@@ -424,13 +428,13 @@ We recommend setting the following binds before running a container:</p></li>
 </div>
 </section>
 </section>
-<section id="building-apptainer-from-docker-io-registry">
-<h2>Building Apptainer from <a class="reference external" href="http://docker.io">docker.io</a> registry<a class="headerlink" href="#building-apptainer-from-docker-io-registry" title="Permalink to this heading">#</a></h2>
-<p>TODO</p>
+<section id="pulling-an-apptainer-image-from-docker-io-registry">
+<h2>Pulling an Apptainer image from <a class="reference external" href="http://docker.io">docker.io</a> registry<a class="headerlink" href="#pulling-an-apptainer-image-from-docker-io-registry" title="Permalink to this heading">#</a></h2>
+<p>apptainer pull docker://&lt;image_name&gt;[:<tag>]</p>
 </section>
 <section id="writing-and-building-apptainer-recipes">
-<h2>Writing and Building Apptainer recipes<a class="headerlink" href="#writing-and-building-apptainer-recipes" title="Permalink to this heading">#</a></h2>
-<p>TODO</p>
+<h2>Writing and building Apptainer recipes<a class="headerlink" href="#writing-and-building-apptainer-recipes" title="Permalink to this heading">#</a></h2>
+<p><a class="reference external" href="https://apptainer.org/docs/user/main/definition_files.html">https://apptainer.org/docs/user/main/definition_files.html</a></p>
 </section>
 <section id="scripting-with-apptainer">
 <h2>Scripting with Apptainer<a class="headerlink" href="#scripting-with-apptainer" title="Permalink to this heading">#</a></h2>
@@ -439,6 +443,13 @@ We recommend setting the following binds before running a container:</p></li>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>apptainer<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>&lt;path_to_container.sif&gt;<span class="w"> </span>python3<span class="w"> </span>./my_script.py
 </pre></div>
 </div>
+</section>
+<section id="clearing-apptainer-cache">
+<h2>Clearing Apptainer cache<a class="headerlink" href="#clearing-apptainer-cache" title="Permalink to this heading">#</a></h2>
+</section>
+<section id="changing-apptainer-cache">
+<h2>Changing Apptainer cache<a class="headerlink" href="#changing-apptainer-cache" title="Permalink to this heading">#</a></h2>
+<p>Set APPTAINER_CACHEDIR environment variable to a different cache path.</p>
 </section>
 <section id="references">
 <h2>References<a class="headerlink" href="#references" title="Permalink to this heading">#</a></h2>
@@ -483,7 +494,7 @@ We recommend setting the following binds before running a container:</p></li>
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Slurm</p>
+        <p class="prev-next-title">Slurm Basics</p>
       </div>
     </a>
     <a class="right-next"
@@ -518,9 +529,11 @@ We recommend setting the following binds before running a container:</p></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#interactive-session">Interactive session</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#building-apptainer-from-docker-io-registry">Building Apptainer from docker.io registry</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#writing-and-building-apptainer-recipes">Writing and Building Apptainer recipes</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pulling-an-apptainer-image-from-docker-io-registry">Pulling an Apptainer image from docker.io registry</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#writing-and-building-apptainer-recipes">Writing and building Apptainer recipes</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#scripting-with-apptainer">Scripting with Apptainer</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#clearing-apptainer-cache">Clearing Apptainer cache</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#changing-apptainer-cache">Changing Apptainer cache</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
 </ul>
   </nav></div>
